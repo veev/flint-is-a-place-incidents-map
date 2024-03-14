@@ -1,0 +1,26 @@
+@font-face {
+  font-family: 'FlintCourier';
+  src: local('FlintCourier'), url(./styles/fonts/FlintCourier.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'DrukMedium';
+  src: local('DrukMedium'), url(./styles/fonts/DrukMedium.otf) format('truetype');
+}
+
+@font-face {
+  font-family: 'fgsb';
+  src: local('fgsb'), url(./styles/fonts/FoundersGroteskSemiboldCond.otf) format('truetype');
+}
+
+@font-face {
+  font-family: 'bgtm';
+  src: local('bgtm'), url(./styles/fonts/basis_grotesque_trial_mono.otf) format('truetype');
+}
+
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}

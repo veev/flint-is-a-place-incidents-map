@@ -2,7 +2,22 @@
 
 ## Run Project
 
-To run the project, you should have Node.js **v7.10.1** or higher installed.
+This project runs on Node.js **v10.0.0**
+
+You can use an older version of Node.js with `nvm` (Node Version Manager). If you haven't installed nvm yet, you can do so by following the instructions on the [nvm GitHub page.](https://github.com/nvm-sh/nvm)
+
+Once nvm is installed, run:
+
+```
+nvm install 10.0.0
+nvm use 10.0.0
+```
+
+To check which version of Node.js you are using, run:
+
+```
+node -v
+```
 
 Yarn is optional
 

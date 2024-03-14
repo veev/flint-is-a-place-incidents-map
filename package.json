@@ -2,6 +2,7 @@
   "name": "flint-is-a-place-incidents-map",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://veev.github.io/flint-is-a-place-incidents-map",
   "dependencies": {
     "antd": "^3.8.2",
     "chokidar": "^3.6.0",

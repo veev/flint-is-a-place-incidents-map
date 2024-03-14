@@ -17,7 +17,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [v21.x]
+        node-version: [v20]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
@@ -27,11 +27,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-          cache: "npm"
+          cache: "yarn"
       - name: Install Dependencies
-        run: yarn upgrade && yarn install --ignore-optional
+        run: yarn install --ignore-optional
       - name: Build
-        run: CI=false yarn build --if-present
+        run: CI=false yarn build
       - name: Setup Pages
         uses: actions/configure-pages@v4
       - name: Upload artifact
@@ -42,7 +42,6 @@ jobs:
   deploy:
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     name: Deploy
     needs: build
     runs-on: ubuntu-latest

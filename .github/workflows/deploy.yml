@@ -21,7 +21,7 @@ jobs:
         run: yarn upgrade && yarn install --ignore-optional
 
       - name: Build
-        run: yarn build
+        run: CI=false yarn build
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4

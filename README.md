@@ -14,7 +14,7 @@ To run the project locally:
 
 Run `yarn start` or `npm start`
 
-The application should be available in the following url:d
+The application should be available in the following url:
 
 http://localhost:3000
 
@@ -22,6 +22,6 @@ http://localhost:3000
 
 For local development you need to have Node.js **v7.10.1** or higher installed.
 
-To deploy changes to the project on Github
+To deploy changes to the project on Github, merge any working branch into main
 
-TODO: Create a github repo, describe Github actions
+This will run a Github Action to deploy `main` to the `gh-pages` branch

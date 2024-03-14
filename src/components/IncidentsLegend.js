@@ -4,20 +4,20 @@ const IncidentsLegend = () => {
 
   return (
     <div className="incidents-legend">
-      <div class="legend">
-        <div class="legend-item">
-          <span class="bar pink"></span>
-          <span class="circle pink"></span>
-          <span class="text">Waiting for police</span>
+      <div className="legend">
+        <div className="legend-item">
+          <span className="bar pink"></span>
+          <span className="circle pink"></span>
+          <span className="text">Waiting for police</span>
         </div>
-        <div class="legend-item">
-          <span class="bar blue"></span>
-          <span class="icon car"></span>
-          <span class="text">Police on scene</span>
+        <div className="legend-item">
+          <span className="bar blue"></span>
+          <span className="icon car"></span>
+          <span className="text">Police on scene</span>
         </div>
-        <div class="legend-item">
-          <span class="time">01:48:19</span>
-          <span class="text">Elapsed time since incident called into dispatch</span>
+        <div className="legend-item">
+          <span className="time">01:48:19</span>
+          <span className="text">Elapsed time since incident called into dispatch</span>
         </div>
       </div>
     </div>

@@ -25,9 +25,9 @@ export default class GraphAreaD3 extends Component {
     this.state = {
       value: 1
     }
-    this.dimensions
-    this.scales
-    this.axes
+    this.dimensions = {}
+    this.scales = {}
+    this.axes = {}
   }
 
   componentDidMount() {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { PropTypes } from 'prop-types'
 import { select } from 'd3-selection'
-import { transition } from 'd3-transition' // need this for transitions even though VS Code grays it out
+import { transition } from 'd3-transition' // need this for transitions even though VS Code and browser think it's unused
 import { Radio } from 'antd'
 import InfographicLegend from './components/InfographicLegend'
 

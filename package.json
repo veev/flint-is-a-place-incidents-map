@@ -23,9 +23,7 @@
     "react-dom": "^16.4.2",
     "react-move": "^2.8.0",
     "react-player-controls": "^0.5.21",
-    "react-scripts": "1.1.5",
-    "react-tooltip": "^3.6.1",
-    "react-transition-group": "^2.4.0"
+    "react-scripts": "1.1.5"
   },
   "scripts": {
     "start": "react-scripts start",

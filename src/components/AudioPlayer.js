@@ -59,7 +59,7 @@ export default class AudioPlayer extends Component {
     })
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     this.updateVolume(nextProps.volume)
   }
 

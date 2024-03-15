@@ -31,7 +31,7 @@ export default class CallBoard extends Component {
     }
   }
 
-  componentWillReceiveProps(nextProps, nextState) {
+  UNSAFE_componentWillReceiveProps(nextProps, nextState) {
     const compareArray = nextProps.activeData.filter(e => !this.props.activeData.includes(e))
 
     if (compareArray.length > 0) {

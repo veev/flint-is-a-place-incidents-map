@@ -13,7 +13,7 @@ export default class AudioManager extends Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     // this happens only if playState changes
     // if timeline isPlaying, then find audio file to trigger
     // don't trigger audio to play once file is playing

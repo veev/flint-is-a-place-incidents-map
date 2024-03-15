@@ -18,10 +18,10 @@ import audio from './data/audio-smallerArray.json'
 import './App.css'
 
 // Human time (GMT): Wednesday, May 10, 2017 10:00:00 AM
-// const startTime = 1494410400000
+const startTime = 1494410400000
 // startTime so there's an audio incident immediately
 // Human time (GMT): Wednesday, May 10, 2017 11:46:01.115 AM
-const startTime = 1494416761115
+// const startTime = 1494416761115
 // Human time (GMT): Thursday, May 11, 2017 10:00:00 AM
 const endTime = 1494496800000
 
@@ -198,15 +198,11 @@ class App extends Component {
       })
       document.getElementById('footerID').style.bottom = '40px'
       
-    } else {
-      // console.log("cant switch modes yet")
     }
   }
 
   handleInfoModeHover = (value) => {
     this.setState({ infoMode: value, isCommentDrawerOpen: false }, () => {
-      // console.log('infoMode', this.state.infoMode)
-      // console.log('selectedMapIncident', this.state.selectedMapIncident)
       if (this.state.selectedMapIncident.properties.eventNumber !== '') {
         if (document.getElementById(`fb-badge-wrapper-${this.state.selectedMapIncident.properties.eventNumber}`)) document.getElementById(`fb-badge-wrapper-${this.state.selectedMapIncident.properties.eventNumber}`).style.zIndex = 1
         if (document.getElementById(`fb-badge-${this.state.selectedMapIncident.properties.eventNumber}`)) document.getElementById(`fb-badge-${this.state.selectedMapIncident.properties.eventNumber}`).style.zIndex = 1

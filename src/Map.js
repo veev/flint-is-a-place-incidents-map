@@ -11,7 +11,6 @@ const defaultMapView = {
   zoom: 12,
   pitch: 30
 }
-// const tooltipMode = false
 const popupMode = true
 
 export default class Map extends Component {
@@ -40,14 +39,6 @@ export default class Map extends Component {
         closeOnClick: false
       })
     }
-
-    // if (tooltipMode) {
-    //   this.tooltipContainer = null
-    //   this.tooltip = null
-
-    //   this.otherTooltipContainer = null
-    //   this.otherTooltip = null
-    // }
   }
 
   static defaultProps = {
@@ -71,29 +62,10 @@ export default class Map extends Component {
         pitch: 0
     })
 
-    // Container to put React generated content in.
-    // if (tooltipMode) {
-    //   this.tooltipContainer = document.createElement('div')
-    //   this.tooltipContainer.className = 'incidents-marker-popup'
-    //   this.tooltipContainer.addEventListener('click', () => console.log('clicked tooltip added at componentDidMount'))
-    //   this.tooltip = new mapboxgl.Marker(this.tooltipContainer, {
-    //     offset: [0, -80]
-    //   })
-
-    //   this.otherTooltipContainer = document.createElement('div')
-    //   this.otherTooltipContainer.className = 'incidents-marker-popup'
-    //   this.otherTooltipContainer.addEventListener('click', () => console.log('clicked other tooltip added at componentDidMount'))
-    //   this.otherTooltip = new mapboxgl.Marker(this.otherTooltipContainer, {
-    //     offset: [0, -80]
-    //   })
-    // }
-
     this.map.on('load', (...args) => {
       // console.log('MAP LOADED')
       this.initMap()
       this.addListeners()
-      // call play state to automatically start time when map loads
-      // this.props.handlePlayStateChange()
       this.props.handleMapLoaded()
     })
   }
@@ -102,12 +74,7 @@ export default class Map extends Component {
     this.map.remove()
   }
 
-  componentWillUpdate(nextProps, nextState) {
-    // console.log('**************')
-    // console.log('viewMode', this.props.viewMode, nextProps.viewMode)
-    // console.log('modeChanged', this.props.modeChanged, nextProps.modeChanged)
-    // console.log('hov, this:', this.props.hoveredFeature.id,'next:', nextProps.hoveredFeature.id)
-    // console.log('sel, this:', this.props.selectedMapIncident.id, 'next:', nextProps.selectedMapIncident.id)
+  UNSAFE_componentWillUpdate(nextProps) {
     if (nextProps.startState) {
       // console.log('map compomentWillUpdate still in start state')
       this.map.flyTo({
@@ -144,16 +111,11 @@ export default class Map extends Component {
         const radarLayers = allLayers.filter( layer => {
           return (layer.id.indexOf('incidentsRadarLayer') !== -1) 
         })
-        // console.log(radarLayers)
-        // console.log(this.props.activeData)
-        // console.log(nextProps.activeData)
 
         // get rid of elements no long in new data
         radarLayers.forEach(layer => {
           const eventId = layer.id.substr(20)
-          // console.log(eventId)
           if (!nextProps.activeData.some(d => d.properties.eventNumber === eventId)) {
-            // console.log('layer', eventId, 'no longer active - REMOVE')
             if (this.map.getLayer(`incidentsRadarLayer-${eventId}`)) this.map.removeLayer(`incidentsRadarLayer-${eventId}`)
             if (this.map.getSource(`incidentsRadarLayer-${eventId}`)) this.map.removeSource(`incidentsRadarLayer-${eventId}`)
           }
@@ -161,10 +123,8 @@ export default class Map extends Component {
         nextProps.activeData.forEach( (d, i) => {
           if (this.map.getLayer(`incidentsRadarLayer-${d.properties.eventNumber}`)) {
             // do nothing
-            // console.log(i, 'layer', d.properties.eventNumber, 'already exists in nexProps, - DO NOTHING')
           } else {
             // create a new layer
-            // console.log(i, 'layer', d.properties.eventNumber, 'doesnt exist in nextProps - CREATE it')
             this.createNewIncidentsRadarLayer(d)
           }
         })
@@ -191,25 +151,18 @@ export default class Map extends Component {
         }
         
         if (nextProps.hoveredFeature.id) {
-          // console.log('nextProps hover case - turn on')
           this.turnIncidentHighlightOn(nextProps.hoveredFeature)
           if (popupMode) this.turnOnTooltip(nextProps.hoveredFeature, this.popup)
-          // if (tooltipMode) this.turnOnTooltip(nextProps.hoveredFeature, this.tooltip)
         } 
         if (this.props.hoveredFeature.id && nextProps.hoveredFeature.id && nextProps.hoveredFeature.id !== this.props.hoveredFeature.id) {
           // console.log('both this and next have hover, but unequal - turn off highlight only')
           this.turnIncidentHighlightOff(this.props.hoveredFeature)
-          // if (popupMode) this.turnOffTooltip(this.popup)
-          // if (tooltipMode) this.turnOffTooltip(this.tooltip)
 
         }
         if (this.props.hoveredFeature.id && !nextProps.hoveredFeature.id) {
           // console.log('feature was hovered and now its not - turn off')
           this.turnIncidentHighlightOff(this.props.hoveredFeature)
           if (popupMode) this.turnOffTooltip(this.popup)
-          // if (tooltipMode) this.turnOffTooltip(this.tooltip)
-          // pause audio when hover away, except if incident is selected
-          // this.props.pauseAudio()
         }
 
         if (this.props.hoveredFeature.id && !nextProps.hoveredFeature.id && !nextProps.selectedMapIncident.id) {
@@ -225,7 +178,6 @@ export default class Map extends Component {
           // console.log('nextProps selected case - turn on highlight')
           this.turnIncidentHighlightOn(nextProps.selectedMapIncident)
           if (popupMode) this.turnOnTooltip(nextProps.selectedMapIncident, this.popup)
-          // if (tooltipMode) this.turnOnTooltip(nextProps.selectedMapIncident, this.tooltip)
         } 
         if (this.props.selectedMapIncident.id && nextProps.selectedMapIncident.id && nextProps.selectedMapIncident.id !== this.props.selectedMapIncident.id) {
           this.map.flyTo({
@@ -233,11 +185,9 @@ export default class Map extends Component {
             zoom: 15, 
             pitch: 60
           })
-          // this.props.pauseAudio()
           // console.log('both this and next have selection, but unequal - turn off this props selected')
           this.turnIncidentHighlightOff(this.props.selectedMapIncident)
           if (popupMode) this.turnOffTooltip(this.popup)
-          // if (tooltipMode) this.turnOffTooltip(this.tooltip)
         } 
         if (this.props.selectedMapIncident.id && !nextProps.selectedMapIncident.id) {
           this.map.flyTo(defaultMapView)
@@ -245,19 +195,16 @@ export default class Map extends Component {
           // console.log('nextProps NOT selected case, but has this props selection - turn off highlight')
           this.turnIncidentHighlightOff(this.props.selectedMapIncident)
           if (popupMode) this.turnOffTooltip(this.popup)
-          // if (tooltipMode) this.turnOffTooltip(this.tooltip)
         }
 
         // Account for other popups if one incident is selected and rolling over other incidents
         if (nextProps.selectedMapIncident.id && nextProps.hoveredFeature.id && nextProps.selectedMapIncident.id !== nextProps.hoveredFeature.id) {
           // add another tooltip
           if (popupMode) this.turnOnTooltip(nextProps.hoveredFeature, this.otherPopup)
-          // if (tooltipMode) this.turnOnTooltip(nextProps.hoveredFeature, this.otherTooltip)
         }
 
         if (nextProps.selectedMapIncident.id && !nextProps.hoveredFeature.id) {
           if (popupMode) this.turnOffTooltip(this.otherPopup)
-          // if (tooltipMode) this.turnOffTooltip(this.otherTooltip)
         }
       }
 
@@ -369,27 +316,11 @@ export default class Map extends Component {
         .setDOMContent(this.setPopupDomContent(incident))
         .addTo(this.map)
     }
-    // if (tooltipMode) {
-    //   tooltip.setLngLat(incident.geometry.coordinates)
-    //   this.setTooltip(incident)
-    //   tooltip.addTo(this.map)
-    // }
   }
 
   turnOffTooltip = (tooltip) => {
     tooltip.remove()
   }
-
-  // setTooltip = (feature) => {
-  //   ReactDOM.render(
-  //     React.createElement(
-  //       Tooltip, {
-  //         feature
-  //       }
-  //     ),
-  //     this.tooltipContainer
-  //   )
-  // }
 
   getTextWidth = (text, font) => {
     // if given, use cached canvas for better performance
@@ -438,10 +369,8 @@ export default class Map extends Component {
       if (this.props.audioSource && this.props.audioContext) {
         // console.log('has all the audio api stuff')
         this.props.audioSource.connect(this.props.audioContext.destination)
-        // console.log(this.props.audioContext.destination)
       }
     }
-
 
     return mainDiv
     
